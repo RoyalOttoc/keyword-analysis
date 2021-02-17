@@ -9,7 +9,7 @@ pipenv install
 2) python keyword.py """it is for keyword analysis for NDIS_private.csv"""
 
 ## how to change numbers of pages to scrap
-Go to seleniumScoll.py, change NUM_SCROLL. the default is 10.
+Go to seleniumScoll.py, change NUM_SCROLL. the default is 5.
 
 ## url
 url must start with "http://m.facebook.com"
