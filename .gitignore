@@ -1,0 +1,9 @@
+secrets.py
+*.csv
+/test.*
+/env.*
+/templates.*
+/venv
+*.pyc
+/.idea
+*.xml

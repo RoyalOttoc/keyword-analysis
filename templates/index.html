@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ndis private facebook search</title>
+  </head>
+  <style>
+    table {
+      table-layout: auto;
+      width: 100%;
+    }
+    th{
+      background-color: darkcyan;
+      color: white;
+    }
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+    }
+    tr td:nth-child(4) {
+      overflow-wrap: anywhere;
+    }
+    #t01 tr:nth-child(even) {
+      background-color: #eee;
+    }
+    #t01 tr:nth-child(odd) {
+      background-color: #fff;
+    }
+    #t01 th {
+      background-color: black;
+      color: white;
+    }
+    input {
+      width: 50%;
+      height: 30px;
+      margin-bottom: 10px;
+    }
+    .search {
+      height: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .likeBtn, .commentBtn {
+  cursor: pointer;
+  background-color: darkred;
+  color: white;
+  outline: none;
+}
+
+
+
+  </style>
+  <body>
+    <h1>NDIS private facebook search by keyword</h1>
+    <form action="/search" method="get">
+      <input
+        type="text"
+        placeholder="Search for a keyword"
+        required
+        name="word"
+      />
+      <button class="search">Search</button>
+    </form>
+
+    <table class="table table-sortable">
+      
+        <tr>
+          <th>Name</th>
+          <th class="like">like <button class="likeBtn">sort</button></th>
+          <th class="comment">comment <button class="commentBtn">sort</button></th>
+          <th>post</th>
+          <th>link</th>
+        </tr>
+            
+        {% for post in posts %}
+      <tr>
+        <td>{{post["name"]}}</td>
+        <td>{{post["like"]}}</td>
+        <td>{{post["comment"]}}</td>
+        <td>{{post["post"]}}</td>
+        <td><a href="{{post["url"]}}" target="_blank">link</a></td>
+      </tr>
+      {% endfor %}
+      
+    </table>
+    <script type=text/javascript>
+      
+      const likeBtn = document.querySelector('.likeBtn')
+      const commentBtn = document.querySelector('.commentBtn')
+
+      function sortTable(className) {
+        const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+        const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+          v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+          )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+     
+      // do the work...
+        document.querySelector(className).addEventListener('click', (() => {
+          const th = document.querySelector(className)
+          const table = th.closest('table');
+       
+          Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+              .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+              .forEach(tr => table.appendChild(tr) );
+      }));
+      }
+      
+      likeBtn.addEventListener('click', sortTable(".like"))
+      commentBtn.addEventListener('click', sortTable(".comment"))
+      
+
+    </script>
+  </body>
+  
+</html>
